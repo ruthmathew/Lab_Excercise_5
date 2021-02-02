@@ -57,30 +57,23 @@
                 </div>
                 <div class="card-action">
                     <h5 id="task-title">List of Tasks</h5>
-                     <!-- Dropdown Trigger  -->
-                    <a class='dropdown-trigger btn' href='#' data-target='dropdownAsc'>
-                        Ascending <i class="fa fa-caret-down"></i></a>
+                    <!-- Dropdown Trigger -->
+                    <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Sort by Date</a>
 
-                     <!-- Dropdown Structure  -->
-                    <ul id='dropdownAsc' class='dropdown-content'>
-                        <li data-value="ascending"><a href="#!">Ascending</a></li>
-                        <li class="divider" tabindex="-1"></li>   
-                        <li data-value="descending"><a href="#!">Descending</a></li>
+                    <!-- Dropdown Structure -->
+                    <ul id='dropdown1' class='dropdown-content'>
+                        <li><a href="#!" class="ascending-btn">Ascending</a></li>
+                        <li><a href="#!" class="descending-btn">Descending</a></li>
                     </ul>
-
-
-                    <select id = "myList" onchange = "dueDate()" >  
-                        <option> ---chose order--- </option>  
-                        <option> ascending </option>  
-                        <option> descending </option>    
-                        </select>
-
                     <div class="input-field col s12">
                         <input type="search" name="filter" id="filter">
                         <label for="filter">Search</label>
                     </div>
                     <ul class="collection">
                         <!-- Here is the task list goes  -->
+                    </ul>
+                    <ul class="collection-sorted">
+                        <!-- Here is the sorted out task list goes temporary holder -->
                     </ul>
                     <a href="#" class="clear-tasks btn red">Clear All Task</a>
                 </div>

@@ -133,3 +133,58 @@ function reloadPage() {
 }
 
 
+
+// sorting
+$(".dropdown-trigger").dropdown();
+const ascendingBtn = document.querySelector(".ascending-btn");
+const descendingBtn = document.querySelector(".descending-btn");
+const collectionSorted = document.querySelector(".collection-sorted");
+
+
+
+
+// ascending sorting
+function ascendingSort() {
+    const unorderedList = document.querySelectorAll(".collection-item");
+    var orderingArray = new Array();
+    const currentTime = Date.now();
+    for (let i = 0; i < unorderedList.length; i++) {
+      listItem = unorderedList[i].querySelector(".dateDiv");
+      taskListTime = listItem.textContent;
+      let differenceTime = currentTime - taskListTime;
+      orderingArray[i] = [differenceTime, i];
+    }
+    orderingArray.sort();
+    for (let i = 0; i < unorderedList.length; i++) {
+      collectionSorted.appendChild(unorderedList[orderingArray[i][1]]);
+    }
+    for (let i = 0; i < unorderedList.length; i++) {
+      taskList.appendChild(unorderedList[orderingArray[i][1]]);
+    }
+  }
+
+// descending sorting
+function descendingSort() {
+    const unorderedList = document.querySelectorAll(".collection-item");
+    var orderingArray = new Array();
+    const currentTime = Date.now();
+    for (let i = 0; i < unorderedList.length; i++) {
+      listItem = unorderedList[i].querySelector(".dateDiv");
+      taskListTime = listItem.textContent;
+      let differenceTime = currentTime - taskListTime;
+      orderingArray[i] = [differenceTime, i];
+    }
+    orderingArray.sort();
+    orderingArray.reverse();
+    for (let i = 0; i < unorderedList.length; i++) {
+      collectionSorted.appendChild(unorderedList[orderingArray[i][1]]);
+    }
+    for (let i = 0; i < unorderedList.length; i++) {
+      taskList.appendChild(unorderedList[orderingArray[i][1]]);
+    }
+  }
+  
+  ascendingBtn.addEventListener("click", ascendingSort);
+  descendingBtn.addEventListener("click", descendingSort);
+
+
