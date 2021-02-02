@@ -7,13 +7,15 @@ button{
     border-radius: 5%;
 }
 
-input{
+.input{
     height: 70px;
-    width: 287px;
+    width: 300px;
     border-radius: 5%;
     color: rgb(0, 0, 0);
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(92, 76, 76);
     font-size: 20px;
+    margin-left: 40px;
+    margin-top: 40px;
 
 }
 
@@ -21,3 +23,15 @@ input{
     background-color: rgb(42, 5, 66);
 }
 
+.key {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 40px;
+
+  }
+
+  .calculator {
+    border-radius: 1px;
+    background-color: black;
+    width: 400px;
+  }
