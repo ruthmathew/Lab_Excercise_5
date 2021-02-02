@@ -1,0 +1,23 @@
+button{
+    height: 70px;
+    width: 70px;
+    font-size: 20px;
+    color: rgb(210, 214, 155);
+    background-color: rgb(29, 41, 8);
+    border-radius: 5%;
+}
+
+input{
+    height: 70px;
+    width: 287px;
+    border-radius: 5%;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    font-size: 20px;
+
+}
+
+.equal{
+    background-color: rgb(42, 5, 66);
+}
+
