@@ -1,109 +1,119 @@
-// calculator object
+// create a calculator object
+const calculator = {
+  display: '0',
+  firstNumber: null,
+  waitSecondNumber: false,
+  operator: null,
+};
 
-let calculator = {
-    firstNumber: 0,
-    secondNumber: 0,
-    numberArray: [],
-    input = "",
-    
-    
-    // addition function
-    add: function(numberArray){
-        let add = 0;
-        numberArray.forEach( numberArray => {
-            add = add + parseInt(numberArray);
-            }
-        )
-        return add;
-    },
-    
-    // substraction function
-    substract: function(number1, number2){
-        return (parseInt(number1) - parseInt(number2));
-    },
+// accept an number(digit)
+function inputNumber(number) {
+  const { display, waitSecondNumber } = calculator;
 
-
-    // multiplication function
-    multiply: function(numberArray){
-        let multi = 1;
-        numberArray.forEach( numberArray => {
-            multi = multi * parseInt(numberArray);
-            }
-        )
-        return multi;
-    },
-
-    //division function
-
-    divide: function(number1, number2){
-
-        if (parseInt(this.secondNumber) != 0){
-            return Number.parseFloat(number1 / number2).toFixed(2);
-        }
-
-        else{
-            return "Error";
-        }
-        
-    },
-
-    square: function(number){
-        return Math.pow(parseInt(number), 2);
-    },
-
-    squareRoot: function(number){
-        if (number < 0){
-            return "Error"
-        }
-        else{
-            return Math.pow(parseInt(number), 0.5);
-        }
-    }
-
-
-    // // calculate based on the choosen operation
-    // calculate: function(choosen){
-    //     let answer;
-    
-    //     if (choosen == "add"){
-    //         answer = calculator.add(calculator.numberArray);
-            
-            
-    //     }
-
-    //     if (choosen == "sub"){
-    //         answer = this.sub(this.firstNumber, this.secondNumber);
-            
-    //     }
-
-    //     if (choosen == "mul"){
-    //         answer = calculator.mul(calculator.numberArray);
-            
-    //     }
-
-    //     if (choosen == "div"){
-    //         answer = this.divide(this.firstNumber, this.secondNumber);
-            
-    //     }
-
-    //     return answer;
-
-    // }
-
-
-
-
+  if (waitSecondNumber === true) {
+    calculator.display = number;
+    calculator.waitSecondNumber = false;
+  } else {
+    calculator.display = display === '0' ? number : display + number;
+  }
 }
 
+// accept a point
 
-// select the needed buttons
+function inputDecimal(dot) {
+  // If the `displayValue` does not contain a decimal point
+  if (!calculator.display.includes(dot)) {
+    // Append the decimal point
+    calculator.display += dot;
+  }
+}
 
-const symbol = document.querySelectorAll(".symbol");
-const input = document.querySelector(".input");
-const eqSign = document.querySelector(".equal");
-const clear = document.querySelector(".clear");
-const del = document.querySelector(".delete");
+// accept and handle operator
+function operator(nextOp) {
+  const { firstNumber, display, operator } = calculator
+  const input = parseFloat(display);
 
-// add event listener
+  if (operator && calculator.waitSecondNumber)  {
+    calculator.operator = nextOp;
+    return;
+  }
 
-del.addEventListener()
+  if (firstNumber == null) {
+    calculator.firstNumber = input;
+  } else if (operator) {
+    const current = firstNumber || 0;
+    const result = calculation[operator](current, input) || calculation[operator](input) ;
+    calculator.display = String(result);
+    calculator.firstNumber = result;
+  }
+
+  calculator.waitSecondNumber = true;
+  calculator.operator = nextOp;
+}
+
+// the calculating function
+const calculation = {
+  '/': (firstNumber, secondNumber) => firstNumber / secondNumber,
+
+  'x': (firstNumber, secondNumber) => firstNumber * secondNumber,
+
+  '+': (firstNumber, secondNumber) => firstNumber + secondNumber,
+
+  '-': (firstNumber, secondNumber) => firstNumber - secondNumber,
+
+  '%':(firstNumber, secondNumber) => firstNumber % secondNumber,
+
+  '^':(firstNumber, secondNumber) => Math.pow(firstNumber,secondNumber),
+   
+  '√':(firstNumber) => Math.sqrt(firstNumber),
+
+  '=': (firstNumber, secondNumber) => secondNumber
+};
+
+// function for clear 
+function reset() {
+  calculator.display = '0';
+  calculator.firstNumber = null;
+  calculator.waitSecondNumber = false;
+  calculator.operator = null;
+}
+
+// function that updates the screen whenever there is a change
+
+function update() {
+  const display = document.querySelector('.input');
+  display.value = calculator.display;
+}
+
+update();
+
+// accept and atach a listnew to the buttons
+
+const keys = document.querySelector('.key');
+keys.addEventListener('click', (event) => {
+  const { target } = event;
+  if (!target.matches('button')) {
+    return;
+  }
+
+  if (target.classList.contains('operator')) {
+    operator(target.value);
+        update();
+    return;
+  }
+
+  if (target.classList.contains('decimal')) {
+    inputDecimal(target.value);
+    update();
+    return;
+  }
+
+  if (target.classList.contains('clear')) {
+    reset();
+    update();
+    return;
+  }
+
+  inputNumber(target.value);
+  update();
+});
