@@ -1,5 +1,5 @@
 // create a calculator object
-const calculator = {
+const calculate = {
   display: '0',
   firstNumber: null,
   waitSecondNumber: false,
@@ -8,13 +8,13 @@ const calculator = {
 
 // accept an number(digit)
 function inputNumber(number) {
-  const { display, waitSecondNumber } = calculator;
+  const { display, waitSecondNumber } = calculate;
 
   if (waitSecondNumber === true) {
-    calculator.display = number;
-    calculator.waitSecondNumber = false;
+    calculate.display = number;
+    calculate.waitSecondNumber = false;
   } else {
-    calculator.display = display === '0' ? number : display + number;
+    calculate.display = display === '0' ? number : display + number;
   }
 }
 
@@ -22,33 +22,33 @@ function inputNumber(number) {
 
 function inputDecimal(dot) {
   // If the `displayValue` does not contain a decimal point
-  if (!calculator.display.includes(dot)) {
+  if (!calculate.display.includes(dot)) {
     // Append the decimal point
-    calculator.display += dot;
+    calculate.display += dot;
   }
 }
 
 // accept and handle operator
 function operator(nextOp) {
-  const { firstNumber, display, operator } = calculator
+  const { firstNumber, display, operator } = calculate
   const input = parseFloat(display);
 
-  if (operator && calculator.waitSecondNumber)  {
-    calculator.operator = nextOp;
+  if (operator && calculate.waitSecondNumber)  {
+    calculate.operator = nextOp;
     return;
   }
 
   if (firstNumber == null) {
-    calculator.firstNumber = input;
+    calculate.firstNumber = input;
   } else if (operator) {
     const current = firstNumber || 0;
     const result = calculation[operator](current, input) || calculation[operator](input) ;
-    calculator.display = String(result);
-    calculator.firstNumber = result;
+    calculate.display = String(result);
+    calculate.firstNumber = result;
   }
 
-  calculator.waitSecondNumber = true;
-  calculator.operator = nextOp;
+  calculate.waitSecondNumber = true;
+  calculate.operator = nextOp;
 }
 
 // the calculating function
@@ -72,17 +72,17 @@ const calculation = {
 
 // function for clear 
 function reset() {
-  calculator.display = '0';
-  calculator.firstNumber = null;
-  calculator.waitSecondNumber = false;
-  calculator.operator = null;
+  calculate.display = '0';
+  calculate.firstNumber = null;
+  calculate.waitSecondNumber = false;
+  calculate.operator = null;
 }
 
 // function that updates the screen whenever there is a change
 
 function update() {
   const display = document.querySelector('.input');
-  display.value = calculator.display;
+  display.value = calculate.display;
 }
 
 update();
